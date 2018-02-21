@@ -10,6 +10,7 @@
 "imagedetail.title.current"       = "%@ из %@";
 "overview.title.current"          = "Галерея";
 "overview.menue.item.save"        = "Сохрание";
+"overview.menue.item.all"         = "Все";
 "shareview.message"               = "Сообщение";
 "shareview.mail"                  = "Почта";
 "shareview.save.cameraRoll"       = "Сохранить в галерею";

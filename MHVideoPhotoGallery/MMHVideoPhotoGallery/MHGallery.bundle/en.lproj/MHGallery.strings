@@ -10,6 +10,7 @@
 "imagedetail.title.current"       = "%@ of %@";
 "overview.title.current"          = "Overview";
 "overview.menue.item.save"        = "Save";
+"overview.menue.item.all"         = "All";
 "shareview.message"               = "Message";
 "shareview.mail"                  = "Mail";
 "shareview.save.cameraRoll"       = "Save to \n Camera Roll";

@@ -129,24 +129,33 @@
     self.UICustomization          = self.galleryViewController.UICustomization;
     self.transitionCustomization  = self.galleryViewController.transitionCustomization;
     
-    if (!self.UICustomization.showOverView) {
-        self.navigationItem.hidesBackButton = YES;
-    }else{
-        if (self.galleryViewController.UICustomization.backButtonState == MHBackButtonStateWithoutBackArrow) {
-            UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
-                                                                            style:UIBarButtonItemStylePlain
-                                                                           target:self
-                                                                           action:@selector(backButtonAction)];
-            self.navigationItem.hidesBackButton = YES;
-            self.navigationItem.leftBarButtonItem = backBarButton;
-        }
-    }
+//    if (!self.UICustomization.showOverView) {
+//        self.navigationItem.hidesBackButton = YES;
+//    }else{
+//        if (self.galleryViewController.UICustomization.backButtonState == MHBackButtonStateWithoutBackArrow) {
+//            UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
+//                                                                            style:UIBarButtonItemStylePlain
+//                                                                           target:self
+//                                                                           action:@selector(backButtonAction)];
+//            self.navigationItem.hidesBackButton = YES;
+//            self.navigationItem.rightBarButtonItem = backBarButton;
+//        }
+//    }
+
+    UIBarButtonItem *backBarButton = [UIBarButtonItem.alloc initWithImage:MHTemplateImage(@"ic_square")
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(backButtonAction)];
+
+    UIBarButtonItem *backBarButton2 = [UIBarButtonItem.alloc initWithTitle:MHGalleryLocalizedString(@"overview.menue.item.all") style:UIBarButtonItemStylePlain target:self action:@selector(backButtonAction)];
+    self.navigationItem.rightBarButtonItems = @[backBarButton, backBarButton2];
     
-    UIBarButtonItem *doneBarButton =  [UIBarButtonItem.alloc initWithBarButtonSystemItem:UIBarButtonSystemItemDone
-                                                                                  target:self
-                                                                                  action:@selector(donePressed)];
+    self.navigationItem.hidesBackButton = YES;
     
-    self.navigationItem.rightBarButtonItem = doneBarButton;
+    
+    UIBarButtonItem *doneBarButton = [UIBarButtonItem.alloc initWithImage:[UIImage imageNamed:@"icnCloseDark"] style:UIBarButtonItemStyleDone target:self action:@selector(donePressed)];
+    
+    self.navigationItem.leftBarButtonItem = doneBarButton;
     
     self.view.backgroundColor = [self.UICustomization MHGalleryBackgroundColorForViewMode:MHGalleryViewModeImageViewerNavigationBarShown];
     
