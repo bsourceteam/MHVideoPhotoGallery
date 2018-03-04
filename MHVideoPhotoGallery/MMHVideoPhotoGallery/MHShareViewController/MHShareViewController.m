@@ -202,6 +202,7 @@
 @property (nonatomic,strong) NSArray *shareDataSourceStart;
 @property (nonatomic,strong) NSMutableArray *selectedRows;
 @property (nonatomic)        CGFloat startPointScroll;
+@property (nonatomic,strong) MHShareItem *moreObject;
 @property (nonatomic,strong) MHShareItem *saveObject;
 @property (nonatomic,strong) MHShareItem *mailObject;
 @property (nonatomic,strong) MHShareItem *messageObject;
@@ -247,6 +248,12 @@
                                                          title:@"Facebook"
                                           withMaxNumberOfItems:10
                                                   withSelector:@"fbShareImages:"
+                                              onViewController:self];
+    
+    self.moreObject = [MHShareItem.alloc initWithImageName:@"morebtnMH"
+                                                         title:@"Еще"
+                                          withMaxNumberOfItems:10
+                                                  withSelector:@"otherShareImages:"
                                               onViewController:self];
 }
 
@@ -387,7 +394,8 @@
     NSMutableArray *shareObjectAvailable = [NSMutableArray arrayWithArray:@[self.messageObject,
                                                                             self.mailObject,
                                                                             self.twitterObject,
-                                                                            self.faceBookObject]];
+                                                                            self.faceBookObject,
+                                                                            self.moreObject]];
     
     
     if(![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
@@ -658,6 +666,41 @@
 
 -(void)fbShareImages:(NSArray*)object{
     [self presentSLComposeForServiceType:SLServiceTypeFacebook];
+}
+
+-(void)otherShareImages: (NSArray *)object{
+    NSMutableArray *objectsToShare = [[NSMutableArray alloc] init];
+    
+    
+    [self getAllImagesForSelectedRows:^(NSArray *images) {
+        for (MHImageURL *dataURL in images) {
+            if ([dataURL.image isKindOfClass:UIImage.class]) {
+                UIImage *image = dataURL.image;
+                [objectsToShare addObject:image];
+            }else{
+                [objectsToShare addObject:dataURL.URL];
+            }
+        }
+        
+        UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+        
+        NSArray *excludeActivities = @[UIActivityTypeAirDrop,
+                                       UIActivityTypePrint,
+                                       UIActivityTypeAssignToContact,
+                                       UIActivityTypeSaveToCameraRoll,
+                                       UIActivityTypeAddToReadingList,
+                                       UIActivityTypePostToFlickr,
+                                       UIActivityTypePostToVimeo];
+        
+        activityVC.excludedActivityTypes = excludeActivities;
+        
+        
+        
+        [self presentViewController:activityVC
+                           animated:YES
+                         completion:nil];
+        
+    } saveDataToCameraRoll:NO];
 }
 
 -(void)smsImages:(NSArray*)object{
