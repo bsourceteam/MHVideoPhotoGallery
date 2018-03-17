@@ -250,8 +250,8 @@
                                                   withSelector:@"fbShareImages:"
                                               onViewController:self];
     
-    self.moreObject = [MHShareItem.alloc initWithImageName:@"morebtnMH"
-                                                         title:@"Еще"
+    self.moreObject = [MHShareItem.alloc initWithImageName:@"activtyMH"
+                                                         title:@"Дальше"
                                           withMaxNumberOfItems:10
                                                   withSelector:@"otherShareImages:"
                                               onViewController:self];
@@ -374,10 +374,10 @@
                 forCellReuseIdentifier:NSStringFromClass(MHCollectionViewTableViewCell.class)];
     [self.view addSubview:self.tableViewShare];
     
-    UIView *sep = [UIView.alloc initWithFrame:CGRectMake(0,115, self.view.frame.size.width, 1)];
-    sep.backgroundColor = [UIColor colorWithRed:0.63 green:0.63 blue:0.63 alpha:1];
-    sep.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    [self.tableViewShare addSubview:sep];
+//    UIView *sep = [UIView.alloc initWithFrame:CGRectMake(0,115, self.view.frame.size.width, 1)];
+//    sep.backgroundColor = [UIColor colorWithRed:0.63 green:0.63 blue:0.63 alpha:1];
+//    sep.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+//    [self.tableViewShare addSubview:sep];
     
     [self.tableViewShare mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(self.collectionView.mas_bottom);
@@ -391,11 +391,13 @@
     [self initShareObjects];
     [self updateTitle];
     
-    NSMutableArray *shareObjectAvailable = [NSMutableArray arrayWithArray:@[self.messageObject,
-                                                                            self.mailObject,
-                                                                            self.twitterObject,
-                                                                            self.faceBookObject,
-                                                                            self.moreObject]];
+    NSMutableArray *shareObjectAvailable = [NSMutableArray arrayWithArray:@[
+//                                                                            self.messageObject,
+//                                                                            self.mailObject,
+//                                                                            self.twitterObject,
+//                                                                            self.faceBookObject,
+//                                                                            self.moreObject
+                                                                            ]];
     
     
     if(![SLComposeViewController isAvailableForServiceType:SLServiceTypeFacebook]){
@@ -405,8 +407,8 @@
         [shareObjectAvailable removeObject:self.twitterObject];
     }
     
-    self.shareDataSource = [NSMutableArray arrayWithArray:@[shareObjectAvailable,
-                                                            @[[self saveObject]]
+    self.shareDataSource = [NSMutableArray arrayWithArray:@[@[[self moreObject]],
+                                                            shareObjectAvailable
                                                             ]];
     
     self.shareDataSourceStart = [NSArray arrayWithArray:self.shareDataSource];
@@ -414,6 +416,15 @@
         self.navigationItem.rightBarButtonItem = [self nextBarButtonItem];
     }
     self.startPointScroll = self.collectionView.contentOffset.x;
+    
+    
+    // show save
+    MHShareItem *item = self.moreObject;
+    SEL selector = NSSelectorFromString(item.selectorName);
+    SuppressPerformSelectorLeakWarning(
+                                       [item.onViewController performSelector:selector
+                                                                   withObject:self.selectedRows];
+                                       );
 }
 
 -(void)viewDidLayoutSubviews{
@@ -440,7 +451,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -687,7 +698,6 @@
         NSArray *excludeActivities = @[UIActivityTypeAirDrop,
                                        UIActivityTypePrint,
                                        UIActivityTypeAssignToContact,
-                                       UIActivityTypeSaveToCameraRoll,
                                        UIActivityTypeAddToReadingList,
                                        UIActivityTypePostToFlickr,
                                        UIActivityTypePostToVimeo];
@@ -1067,6 +1077,7 @@
         
     }
 }
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
