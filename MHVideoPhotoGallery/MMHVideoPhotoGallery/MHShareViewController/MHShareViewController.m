@@ -693,6 +693,10 @@
             }
         }
         
+        if ([objectsToShare count] == 0) {
+            return;
+        }
+        
         UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
         
         NSArray *excludeActivities = @[UIActivityTypeAirDrop,
