@@ -592,9 +592,9 @@
         NSArray *visibleCells = [self sortObjectsWithFrame:self.collectionView.visibleCells];
         for (MHMediaPreviewCollectionViewCell *cellOther in visibleCells) {
             if (!cellOther.videoIcon.isHidden){
-                cellOther.selectionImageView.frame = CGRectMake(cellOther.bounds.size.width-30,  cellOther.bounds.size.height-50, 22, 22);
+                cellOther.selectionImageView.frame = CGRectMake(cellOther.bounds.size.width-30,  cellOther.bounds.size.height-70, 22, 22);
             }else{
-                cellOther.selectionImageView.frame = CGRectMake(cellOther.bounds.size.width-30,  cellOther.bounds.size.height-30, 22, 22);
+                cellOther.selectionImageView.frame = CGRectMake(cellOther.bounds.size.width-30,  cellOther.bounds.size.height-70, 22, 22);
             }
         }
         
@@ -604,16 +604,16 @@
         
         NSInteger valueToAddYForVideoType =0;
         if (!cell.videoIcon.isHidden){
-            valueToAddYForVideoType+=20;
+            valueToAddYForVideoType+=0;
         }
         
-        cell.selectionImageView.frame = CGRectMake(self.view.frame.size.width-rect.origin.x-30, cell.bounds.size.height-(30+valueToAddYForVideoType), 22, 22);
+        cell.selectionImageView.frame = CGRectMake(self.view.frame.size.width-rect.origin.x-30, cell.bounds.size.height-(70+valueToAddYForVideoType), 22, 22);
         if (cell.selectionImageView.frame.origin.x < 5) {
-            cell.selectionImageView.frame = CGRectMake(5,  cell.bounds.size.height-(30+valueToAddYForVideoType), 22, 22);
+            cell.selectionImageView.frame = CGRectMake(5,  cell.bounds.size.height-(70+valueToAddYForVideoType), 22, 22);
         }
         
         if (cell.selectionImageView.frame.origin.x > cell.bounds.size.width-30 ) {
-            cell.selectionImageView.frame = CGRectMake(cell.bounds.size.width-30,  cell.bounds.size.height-(30+valueToAddYForVideoType), 22, 22);
+            cell.selectionImageView.frame = CGRectMake(cell.bounds.size.width-30,  cell.bounds.size.height-(70+valueToAddYForVideoType), 22, 22);
         }
     }
 }

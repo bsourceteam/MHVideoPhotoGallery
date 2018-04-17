@@ -60,13 +60,13 @@
         [self.contentView addSubview:self.videoDurationLength];
         
 
-        _videoIcon = [UIImageView.alloc initWithFrame:CGRectMake(5,  self.bounds.size.height-20, 15, 20)];
+        _videoIcon = [UIImageView.alloc initWithFrame:CGRectMake(5,  self.bounds.size.height-70, 15, 20)];
         self.videoIcon.image = MHGalleryImage(@"videoIcon");
         self.videoIcon.contentMode = UIViewContentModeScaleAspectFit;
         self.videoIcon.hidden = YES;
         [self.contentView addSubview:self.videoIcon];
         
-        _selectionImageView = [UIImageView.alloc initWithFrame:CGRectMake(self.bounds.size.width-30,  self.bounds.size.height-30, 22, 22)];
+        _selectionImageView = [UIImageView.alloc initWithFrame:CGRectMake(self.bounds.size.width-30,  self.bounds.size.height-70, 22, 22)];
         self.selectionImageView.image = MHGalleryImage(@"videoIcon");
         self.selectionImageView.contentMode = UIViewContentModeScaleAspectFit;
         self.selectionImageView.hidden = YES;
