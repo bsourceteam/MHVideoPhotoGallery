@@ -685,12 +685,13 @@
     
     [self getAllImagesForSelectedRows:^(NSArray *images) {
         for (MHImageURL *dataURL in images) {
-            if ([dataURL.image isKindOfClass:UIImage.class]) {
-                UIImage *image = dataURL.image;
-                [objectsToShare addObject:image];
-            }else{
-                [objectsToShare addObject:dataURL.URL];
-            }
+//            if ([dataURL.image isKindOfClass:UIImage.class]) {
+//                UIImage *image = dataURL.image;
+//                [objectsToShare addObject:image];
+//            }else{
+//                [objectsToShare addObject:dataURL.URL];
+//            }
+            [objectsToShare addObject:dataURL.URL];
         }
         
         if ([objectsToShare count] == 0) {
